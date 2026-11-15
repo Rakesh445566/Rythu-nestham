@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rythu Nestham - Mana Rythu, Mana Balama</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: Arial;
+  margin: 0;
+  padding: 15px;
+  text-align: center;
+  background: linear-gradient(135deg, #FFFDE7, #DCEDC8, #A5D6A7);
+}
+.top {
+  background: white;
+  padding: 22px;
+  border-radius: 25px;
+  max-width: 620px;
+  margin: 10px auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.top h1 {
+  font-size: 30px;
+  background: linear-gradient(90deg, #2E7D32, #FF8F00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.box {
+  padding: 18px;
+  border-radius: 25px;
+  margin: 14px auto;
+  max-width: 620px;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  text-align: left;
+}
+.c1 { background: linear-gradient(135deg, #2E7D32, #66BB6A); }
+.c2 { background: linear-gradient(135deg, #FF8F00, #FFB300); color:#333; }
+.c3 { background: linear-gradient(135deg, #1565C0, #42A5F5); }
+.c4 { background: linear-gradient(135deg, #6A1B9A, #AB47BC); }
+.c5 { background: linear-gradient(135deg, #E65100, #FF7043); }
+button {
+  background: white;
+  color: #333;
+  border: none;
+  padding: 11px 15px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+button:active { transform: scale(0.95); }
+input, select, textarea {
+  width: 96%;
+  padding: 12px;
+  border-radius: 15px;
+  border: none;
+  margin: 6px 0;
+  font-size: 15px;
+}
+.card {
+  background: white;
+  color: #333;
+  padding: 15px;
+  border-radius: 20px;
+  margin: 10px 0;
+  text-align: left;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.tag { display: inline-block; padding: 5px 10px; border-radius: 20px; color: white; font-size: 13px; font-weight: bold; }
+.red { background: #FF3B30; } .orange { background: #FF9500; } .blue { background: #007AFF; } .green { background: #34C759; }
+.small { background: white; color: #333; padding: 8px 11px; font-size: 13px; }
+.distBtn { background:#FFF9C4; font-size:13px; }
+.footer { font-weight: bold; color: #333; margin: 20px; }
+.rateBox { background:white; color:#333; padding:12px; border-radius:15px; margin:8px 0; display:flex; justify-content:space-between; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>🌾 RYTHU NESTHAM 🚜</h1>
+  <p><b>Mana Rythu, Mana Balam!</b><br>Anantapur Rythu nundi AP Rythu varaku - Rates, Weather, Market - Anni oka chota!</p>
+  <p>📊 Total Posts: <b id="totalCount">0</b> | 🌾 Rythulu: <b id="rythuCount">0</b></p>
+  <button onclick="showAll()">🌍 AP Motham</button>
+  <button onclick="showMine()">👑 Naa Posts</button>
+</div>
+
+<div class="box c2">
+  <h2>📈 Ee Roju Market Rates - AP</h2>
+  <p>Nee district lo ee roju rate enti? Ikkada chudu!</p>
+  <div id="rates"></div>
+  <p style="font-size:13px;">Rates anni approximate ye. Market ki velle mundu okasari confirm chesukondi!</p>
+  <button onclick="refreshRates()">🔄 Rates Update Chey</button>
+</div>
+
+<div class="box c1">
+  <h2>📝 Nee Panta Ammali / Konali Ante Ikkada Rayi</h2>
+  <select id="district">
+    <option>Anantapur</option><option>Anakapalli</option><option>Alluri Sitharama Raju</option><option>Annamayya</option><option>Bapatla</option><option>Chittoor</option><option>Dr. B.R. Ambedkar Konaseema</option><option>East Godavari</option><option>Eluru</option><option>Guntur</option><option>Kakinada</option><option>Krishna</option><option>Kurnool</option><option>Nandyal</option><option>NTR (Vijayawada)</option><option>Palnadu</option><option>Parvathipuram Manyam</option><option>Prakasam</option><option>Sri Potti Sriramulu Nellore</option><option>Sri Sathya Sai</option><option>Srikakulam</option><option>Tirupati</option><option>Visakhapatnam</option><option>Vizianagaram</option><option>West Godavari</option><option>YSR Kadapa</option>
+  </select>
+  <select id="pantaType">
+    <option>🍅 Tomato</option><option>🧅 Onion</option><option>🌶️ Mirchi</option><option>🥜 Verusenaga (Groundnut)</option><option>🌾 Vadlu (Paddy)</option><option>🌽 Mokkajonna</option><option>🍌 Arati</option><option>🥭 Mamidi</option><option>☀️ Patti (Cotton)</option><option>🌻 Puvvu / Sunflower</option><option>🥔 Bangaladumpa</option><option>🐄 Paalu / Dairy</option><option>🐔 Kodi / Gudlu</option><option>🤝 Inkemianna Panta</option>
+  </select>
+  <select id="postType">
+    <option value="SELL">🚜 Nenu Ammali - Sell Cheyali</option>
+    <option value="BUY">🛒 Nenu Konali - Buy Cheyali</option>
+    <option value="ASK">❓ Doubt / Salaha Kavali</option>
+  </select>
+  <input id="name" placeholder="👤 Nee Peru - Ex: Ramesh Rythu">
+  <input id="place" placeholder="📍 Village / Mandal - Ex: Anantapur, Tadipatri">
+  <input id="price" placeholder="💰 Rate / Kg - Ex: 30rs Kg">
+  <input id="phone" placeholder="📞 Phone Number (Optional)">
+  <textarea id="desc" placeholder="Vivaram rayi... Ex: Naa daggara 100kg Tomato undi, Anantapur market ki theeskeltha..."></textarea>
+  <button onclick="addPost()">🚀 Post Pettu</button>
+  <p id="msg"></p>
+</div>
+
+<div class="box c3">
+  <h2>🌦️ Weather + Rythu Salaha</h2>
+  <p id="weatherBox">🌤️ Anantapur lo ee roju: Enda ekkuva ga untundi. Panta ki neellu pettandi. Varsham vasthe, panta ni cover cheyandi!</p>
+  <button onclick="changeWeather()">🌦️ Naa District Weather Chudu</button>
+  <p>✅ <b>Rythu Tip:</b> Dalari ki ammavaddhu! Market rate chusi, 2-3 chotla adigi ammukondi! Mosapokandi!</p>
+  <p>✅ <b>Tip 2:</b> Panta photo teesi pettandi, konetollu ventane call chestharu!</p>
+</div>
+
+<div class="box c4">
+  <h2>🔥 AP Rythula Posts - Live!</h2>
+  <div id="postList"></div>
+</div>
+
+<div class="box c5">
+  <h2>📲 Rythula Andariki Share Chey</h2>
+  <button onclick="shareApp()">📲 WhatsApp lo Share</button>
+  <p id="shareMsg"></p>
+</div>
+
+<div class="box" style="background:white;color:#333;">
+  <h2>🆘 Rythu Helpline</h2>
+  <p>🌾 Rythu Bharosa: <b>155251</b><br>🌦️ Weather: <b>1800-180-1551</b><br>🏛️ AP Rythu Helpline: <b>1100</b><br>🚑 Ambulance: <b>108</b></p>
+</div>
+
+<p class="footer">Made with ❤️ by Muthyala Rakesh | Anantapur Rythula Kosam<br>Mana Rythu Bagunte, Mana AP Baguntundi!</p>
+
+<script>
+let districts = ["Anantapur","Anakapalli","Alluri Sitharama Raju","Annamayya","Bapatla","Chittoor","Dr. B.R. Ambedkar Konaseema","East Godavari","Eluru","Guntur","Kakinada","Krishna","Kurnool","Nandyal","NTR (Vijayawada)","Palnadu","Parvathipuram Manyam","Prakasam","Sri Potti Sriramulu Nellore","Sri Sathya Sai","Srikakulam","Tirupati","Visakhapatnam","Vizianagaram","West Godavari","YSR Kadapa"];
+let posts = [];
+try { posts = JSON.parse(localStorage.getItem("rythuNestham") || "[]"); } catch(e) { posts = []; }
+let currentFilter = "ALL";
+let ratesData = [
+  { crop: "🍅 Tomato", price: "28 - 35 Rs / Kg" },
+  { crop: "🧅 Onion", price: "22 - 30 Rs / Kg" },
+  { crop: "🌶️ Mirchi", price: "120 - 160 Rs / Kg" },
+  { crop: "🥜 Verusenaga", price: "65 - 78 Rs / Kg" },
+  { crop: "🌾 Vadlu (Paddy)", price: "22 - 24 Rs / Kg" },
+  { crop: "🌽 Mokkajonna", price: "20 - 25 Rs / Kg" },
+  { crop: "🥭 Mamidi", price: "40 - 60 Rs / Kg" },
+];
+function showRates() {
+  let html = "";
+  ratesData.forEach(r => { html += "<div class='rateBox'><b>"+r.crop+"</b><b>"+r.price+"</b></div>"; });
+  document.getElementById("rates").innerHTML = html;
+}
+showRates();
+function refreshRates() {
+  alert("✅ Rates update aiyyayi KING! Ee rates Anantapur Market approximate rates!");
+  showRates();
+}
+function changeWeather() {
+  let d = document.getElementById("district").value;
+  let weathers = ["🌤️ Enda ekkuva, neellu pettandi!", "🌧️ Varsham chance undi, panta cover cheyandi!", "☀️ Manchi enda, panta aarabettandi!", "🌤️ Challa gaali, spray ki manchi time!"];
+  let w = weathers[Math.floor(Math.random()*weathers.length)];
+  document.getElementById("weatherBox").innerText = "📍 " + d + " lo: " + w;
+}
+function addPost() {
+  let dist = document.getElementById("district").value;
+  let panta = document.getElementById("pantaType").value;
+  let type = document.getElementById("postType").value;
+  let name = document.getElementById("name").value || "Oka Rythu";
+  let place = document.getElementById("place").value;
+  let price = document.getElementById("price").value;
+  let phone = document.getElementById("phone").value;
+  let desc = document.getElementById("desc").value;
+  if(!place || !desc) { alert("Place mariyu vivaram rayi KING!"); return; }
+  let p = { id: Date.now(), dist: dist, panta: panta, type: type, name: name, place: place, price: price, phone: phone, desc: desc, mine: true };
+  posts.unshift(p);
+  saveAndShow();
+  document.getElementById("msg").innerText = "✅ Post pettav KING! " + dist + " rythulu chustharu!";
+  document.getElementById("place").value=""; document.getElementById("desc").value=""; document.getElementById("price").value="";
+}
+function saveAndShow() { localStorage.setItem("rythuNestham", JSON.stringify(posts)); showPosts(); }
+function showAll() { currentFilter="ALL"; showPosts(); }
+function showMine() { currentFilter="MINE"; showPosts(); }
+function deletePost(id) { posts = posts.filter(x=>x.id!==id); saveAndShow(); }
+function callRythu(phone) { if(phone) alert("📞 Call chey: " + phone); else alert("Phone number ledu KING!"); }
+function showPosts() {
+  let list = document.getElementById("postList");
+  let show = posts;
+  if(currentFilter==="MINE") show = show.filter(x=>x.mine);
+  document.getElementById("totalCount").innerText = posts.length;
+  document.getElementById("rythuCount").innerText = posts.length + 15;
+  if(show.length===0) {
+    list.innerHTML = "<div class='card'>Inka posts levu KING! Modati post nuvve pettu! Anantapur Rythu nundi start cheddam!</div>";
+    return;
+  }
+  let html="";
+  show.forEach(p=>{
+    let tag = p.type==="SELL" ? "🚜 AMMALI" : p.type==="BUY" ? "🛒 KONALI" : "❓ SALAHA";
+    let color = p.type==="SELL" ? "green" : p.type==="BUY" ? "blue" : "orange";
+    html += "<div class='card'>";
+    html += "<span class='tag " + color + "'>" + tag + "</span> ";
+    html += "<span class='tag red'>" + p.panta + "</span><br><br>";
+    html += "<b>👤 " + p.name + "</b> - 📍 " + p.dist + ", " + p.place + "<br>";
+    if(p.price) html += "💰 Rate: <b>" + p.price + "</b><br>";
+    html += "<p>" + p.desc + "</p>";
+    if(p.phone) html += "<p>📞 Phone: <b>" + p.phone + "</b></p>";
+    html += "<button class='small' onclick='callRythu(\"" + p.phone + "\")'>📞 Call Chey</button>";
+    html += "<button class='small' onclick='deletePost(" + p.id + ")'>🗑️ Delete</button>";
+    html += "</div>";
+  });
+  list.innerHTML = html;
+}
+showPosts();
+function shareApp() {
+  let txt = "🌾 RYTHU NESTHAM App chudu! Rates, Weather, Panta ammukovadam - anni oka chota! Anantapur Rythula kosam! " + window.location.href;
+  window.open("https://wa.me/?text=" + encodeURIComponent(txt));
+  document.getElementById("shareMsg").innerText = "Share window open aindi KING!";
+}
+</script>
+</body>
+</html>
